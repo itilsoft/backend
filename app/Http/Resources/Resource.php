@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 class Resource
 {
-    private string $success;
+    private bool $success;
     private array $messages;
 
     public function __construct(bool $success, array $messages = [])
