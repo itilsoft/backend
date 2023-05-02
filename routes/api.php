@@ -14,14 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Public routes
+Route::post('/user/login', [\App\Http\Controllers\UserController::class, 'login']);
+Route::post('/user/register', [\App\Http\Controllers\UserController::class, 'register']);
+
 // Private routes
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::post('/user/login', function (Request $request) {
-    $user = \App\Models\User::query()->where('email', '=','umut@gmail.com')->first();
-    $token = $user->createToken('itilsoft');
-
-    return $token;
+    Route::post('/user/change-password', [\App\Http\Controllers\UserController::class, 'changePassword']);
 });
