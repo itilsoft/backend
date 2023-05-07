@@ -167,9 +167,14 @@ return [
     */
 
     'attributes' => [
-        'full_name' => 'Ad soyad',
+        'fullname' => 'Ad soyad',
         'username' => 'Kullanıcı adı',
         'password' => 'Şifre',
+        'oldPassword' => 'Eski şifre',
+        'newPassword' => 'Yeni şifre',
+        'description' => 'Açıklama',
+        'star' => 'Yıldız',
+        'serviceId' => 'Servis id',
     ],
 
 ];

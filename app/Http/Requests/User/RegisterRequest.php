@@ -2,10 +2,7 @@
 
 namespace App\Http\Requests\User;
 
-use App\Http\Resources\Resource;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Http\Requests\GeneralRequest;
 
 /**
  * @OA\Post(
@@ -16,8 +13,8 @@ use Illuminate\Http\Exceptions\HttpResponseException;
  *     required=true,
  *     description="Register",
  *     @OA\JsonContent(
- *       required={"full_name", "username","password"},
- *       @OA\Property(property="full_name", type="string"),
+ *       required={"fullname", "username","password"},
+ *       @OA\Property(property="fullname", type="string"),
  *       @OA\Property(property="username", type="string"),
  *       @OA\Property(property="password", type="string", format="password"),
  *     ),
@@ -28,7 +25,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
  *   ),
  * )
  */
-class RegisterRequest extends FormRequest
+class RegisterRequest extends GeneralRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -38,16 +35,9 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name' => 'required|string|min:3|max:30',
+            'fullname' => 'required|string|min:3|max:30',
             'username' => 'required|string|unique:users|min:3|max:20',
             'password' => 'required|string|min:6|max:20',
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw (new HttpResponseException(response()->json(
-            (new Resource(false, $validator->messages()->all()))->response()
-        )));
     }
 }

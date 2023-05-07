@@ -2,10 +2,7 @@
 
 namespace App\Http\Requests\User;
 
-use App\Http\Resources\Resource;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Http\Requests\GeneralRequest;
 
 /**
  * @OA\Post(
@@ -27,7 +24,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
  *   ),
  * )
  */
-class LoginRequest extends FormRequest
+class LoginRequest extends GeneralRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -40,12 +37,5 @@ class LoginRequest extends FormRequest
             'username' => 'required|string|min:3|max:20',
             'password' => 'required|string|min:6|max:20',
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw (new HttpResponseException(response()->json(
-            (new Resource(false, $validator->messages()->all()))->response()
-        )));
     }
 }

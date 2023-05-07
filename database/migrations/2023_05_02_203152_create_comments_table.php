@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('description');
             $table->tinyInteger('star');
-            $table->foreignId('userId')->references('id')->on('users');
-            $table->foreignId('serviceId')->references('id')->on('services');
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('service_id')->references('id')->on('services');
             $table->timestamps();
         });
     }

@@ -2,10 +2,7 @@
 
 namespace App\Http\Requests\User;
 
-use App\Http\Resources\Resource;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Http\Requests\GeneralRequest;
 
 /**
  * @OA\Post(
@@ -17,9 +14,9 @@ use Illuminate\Http\Exceptions\HttpResponseException;
  *     required=true,
  *     description="Change Password",
  *     @OA\JsonContent(
- *       required={"old_password","new_password"},
- *       @OA\Property(property="old_password", type="string", format="password"),
- *       @OA\Property(property="new_password", type="string", format="password"),
+ *       required={"oldPassword","newPassword"},
+ *       @OA\Property(property="oldPassword", type="string", format="password"),
+ *       @OA\Property(property="newPassword", type="string", format="password"),
  *     ),
  *   ),
  *   @OA\Response(
@@ -28,7 +25,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
  *   ),
  * )
  */
-class ChangePasswordRequest extends FormRequest
+class ChangePasswordRequest extends GeneralRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -38,15 +35,8 @@ class ChangePasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'old_password' => 'required|string|min:6|max:20',
-            'new_password' => 'required|string|min:6|max:20',
+            'oldPassword' => 'required|string|min:6|max:20',
+            'newPassword' => 'required|string|min:6|max:20',
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw (new HttpResponseException(response()->json(
-            (new Resource(false, $validator->messages()->all()))->response()
-        )));
     }
 }

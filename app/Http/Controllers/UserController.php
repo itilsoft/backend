@@ -7,17 +7,15 @@ use App\Http\Requests\User\LoginRequest;
 use App\Http\Requests\User\RegisterRequest;
 use App\Http\Resources\Resource;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
     public function login(LoginRequest $request)
     {
         $user = User::query()->where('username', $request->username)->first();
-        if($user) {
-            if(Hash::check($request->password, $user->password)) {
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
                 return (new Resource(true))->response([
                     'token' => $user->createToken('itilsoft')->plainTextToken
                 ]);
@@ -30,7 +28,7 @@ class UserController extends Controller
     public function register(RegisterRequest $request)
     {
         $user = new User();
-        $user->full_name = $request->full_name;
+        $user->fullname = $request->fullname;
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
         $user->save();
@@ -41,8 +39,8 @@ class UserController extends Controller
     public function changePassword(ChangePasswordRequest $request)
     {
         $user = $request->user();
-        if(Hash::check($request->old_password, $user->password)) {
-            $user->password = Hash::make($request->new_password);
+        if (Hash::check($request->oldPassword, $user->password)) {
+            $user->password = Hash::make($request->newPassword);
             $user->save();
 
             return (new Resource(true))->response();
