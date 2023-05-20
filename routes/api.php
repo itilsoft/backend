@@ -32,4 +32,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/service/{id}', [\App\Http\Controllers\ServiceController::class, 'show']);
 
     Route::post('/comment', [\App\Http\Controllers\CommentController::class, 'store']);
+
+    Route::group(['middleware' => 'auth.admin'], function () {
+        Route::get('/admin/statistics', [\App\Http\Controllers\AdminController::class, 'getStatistics']);
+    });
 });

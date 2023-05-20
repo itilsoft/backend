@@ -19,7 +19,8 @@ class UserController extends Controller
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
                 return (new Resource(true))->response([
-                    'token' => $user->createToken('itilsoft')->plainTextToken
+                    'token' => $user->createToken('itilsoft')->plainTextToken,
+                    'user' => $user,
                 ]);
             }
         }

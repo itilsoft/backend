@@ -13,4 +13,9 @@ class Service extends Model
     {
         return $this->hasMany(Comment::class, 'service_id', 'id');
     }
+
+    public function averageStar()
+    {
+        return round($this->comments()->average('star'), 2);
+    }
 }
