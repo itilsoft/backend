@@ -14,4 +14,9 @@ class Comment extends Model
         return $this->hasOne(User::class, 'id', 'user_id')
             ->select('id', 'fullname', 'username');
     }
+
+    public function service()
+    {
+        return $this->hasOne(Service::class, 'id', 'service_id');
+    }
 }

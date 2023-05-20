@@ -140,6 +140,24 @@
                 ]
             }
         },
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Get User Info",
+                "responses": {
+                    "200": {
+                        "description": "Get User Info"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/api/user/login": {
             "post": {
                 "tags": [
@@ -175,6 +193,24 @@
                         "description": "Login"
                     }
                 }
+            }
+        },
+        "/api/user/logout": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "User Logout",
+                "responses": {
+                    "200": {
+                        "description": "User Logout"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/api/user/register": {

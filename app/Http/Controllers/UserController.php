@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\ChangePasswordRequest;
+use App\Http\Requests\User\GetUserRequest;
 use App\Http\Requests\User\LoginRequest;
+use App\Http\Requests\User\LogoutRequest;
 use App\Http\Requests\User\RegisterRequest;
 use App\Http\Resources\Resource;
 use App\Models\User;
@@ -36,6 +38,14 @@ class UserController extends Controller
         return (new Resource(true))->response();
     }
 
+    public function getUser(GetUserRequest $request)
+    {
+        $userId = $request->user()->id;
+        $user = User::with('comments.service')->find($userId);
+
+        return (new Resource(true))->response(['user' => $user]);
+    }
+
     public function changePassword(ChangePasswordRequest $request)
     {
         $user = $request->user();
@@ -47,5 +57,11 @@ class UserController extends Controller
         }
 
         return (new Resource(false, ['Eski şifre yanlış.']))->response();
+    }
+
+    public function logout(LogoutRequest $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return (new Resource(true))->response();
     }
 }

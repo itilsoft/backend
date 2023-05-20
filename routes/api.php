@@ -24,6 +24,8 @@ Route::post('/user/register', [\App\Http\Controllers\UserController::class, 'reg
 
 // Private routes
 Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('/user', [\App\Http\Controllers\UserController::class, 'getUser']);
+    Route::post('/user/logout', [\App\Http\Controllers\UserController::class, 'logout']);
     Route::post('/user/change-password', [\App\Http\Controllers\UserController::class, 'changePassword']);
 
     Route::get('/service', [\App\Http\Controllers\ServiceController::class, 'index']);
