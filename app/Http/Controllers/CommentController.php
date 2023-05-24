@@ -11,13 +11,14 @@ class CommentController extends Controller
     public function store(StoreRequest $request)
     {
         $userId = auth()->id();
-        $commentIsExist = Comment::query()
+
+        /*$commentIsExist = Comment::query()
             ->where('user_id', $userId)
             ->where('service_id', $request->serviceId)
             ->first();
         if($commentIsExist) {
             return (new Resource(false, ['Önceden bu servise yorum yapılmıştır.']))->response();
-        }
+        }*/
 
         $comment = new Comment();
         $comment->description = $request->description;
